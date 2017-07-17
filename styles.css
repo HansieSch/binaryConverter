@@ -1,0 +1,149 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/****
+    Body
+****/
+body {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 21px;
+    font-family: Verdana;
+    color: #262626;
+}
+
+/****
+    Navbar
+****/
+nav {
+    height: 89px;
+    width: 100%;
+    background: #011e03;
+    padding-left: 38px;
+    padding-right: 38px;
+}
+
+nav > .navLogo {
+    line-height: 89px;
+    padding: 0 1em;
+    font-size: 21px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #f6fef6;
+    text-decoration: none;
+}
+
+/****
+    Left - Input
+****/
+.left {
+    width: 33%;
+    height: calc(100vh - 144px);
+    padding: 59px 21px 59px 34px;
+    background: #ebfeec;
+}
+
+form#inputForm {
+    height: 100%;
+    width: 100%;
+    padding: 16px 21px;
+}
+
+.formRow {
+    margin-bottom: 21px;
+}
+
+label, select, textarea {
+    display: block;
+    font-size: 13px;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 1em 1.5em;
+}
+
+label {
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+textarea {
+    resize: none;
+    height: 141px;
+}
+
+button {
+    border: 1px solid #262626;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 1em 1.618em;
+    outline: none;
+    background-color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    position: relative;
+    left: 100%;
+    transform: translateX(-100%);
+    cursor: pointer;
+    transition: all 0.15s linear;
+    color: #262626;
+}
+
+button:hover {
+    background-color: #262626;
+    color: #d9d9d9;
+}
+
+button:active {
+    background-color: #171717;
+    color: #c7c7c7;
+    transition: all 0.075s linear;
+}
+
+/****
+    Right - Output
+****/
+.right {
+    height: calc(100vh - 144px);
+    width: 67%;
+    padding: 59px 34px 59px 21px;
+    background: #ebfeec;
+}
+
+section.output {
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 16px 21px;
+    font-size: 13px;
+    border: 1px solid rgba(0,0,0,0.3);
+    overflow-y: scroll;
+}
+
+/****
+    Footer
+****/
+footer {
+    height: 55px;
+    width: 100%;
+    padding: 0 59px;
+    font-size: 12px;
+    color: #adffb3;
+    line-height: 55px;
+    letter-spacing: 1px;
+    background-color: #011e03;
+}
+
+footer a {
+    color: inherit;
+    transition: all 0.1s linear;
+}
+
+footer a:hover {
+    color: #47ff54;
+}

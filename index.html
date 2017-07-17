@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en-za">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Binary Converter</title>
+
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <style type="text/css"></style>
+    </head>
+
+    <body>
+
+        <nav>
+            <a href="#" class="navLogo">Converter</a>
+        </nav>
+
+        <div class="left">
+            <form id="inputForm" onsubmit="convert(); return false;">
+                <div class="formRow">
+                    <label>Convert:</label>
+                    <select id="option">
+                        <option value="stringToBinary">String to Binary</option>
+                        <option value="binaryToString">Binary to String</option>
+                        <option value="intToBinary">Integer to Binary</option>
+                        <option value="binaryToInt">Binary to Integer</option>
+                    </select>
+                </div>
+                <div class="formRow">
+                    <label>Input:</label>
+                    <textarea type="text" placeholder="Input" name="input"></textarea>
+                </div>
+                <div class="formRow">
+                    <button type="submit">convert</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="right">
+            <section class="output"></section>
+        </div>
+
+        <footer>
+                Made by <a href="#hansie">Hansie</a>
+        </footer>
+
+        <script type="text/javascript" src="converter.js"></script>
+        <script type="text/javascript">
+            var option = document.querySelector("#option"),
+                input = document.querySelector("textarea[name='input']"),
+                output = document.querySelector(".output");
+
+            function convert() {
+
+                // Check whether user entered valid binary.
+                if (option.value.startsWith("binary") && !checkBinaryValidity(input.value)) {
+                    output.innerText = `Error: ${input.value} is not valid binary.`;
+                    return;
+                }
+
+                if (option.value.startsWith("binary") || option.value.startsWith("int")) {
+                    // remove the line breaks from value
+                    console.log(input.value);
+                    input.value = removeLineBreaks(input.value);
+                    console.log(input.value);
+                }
+
+                switch (option.value) {
+                    case "stringToBinary":
+                        output.innerText = converter.stringToBinary(input.value);
+                        break;
+                    case "binaryToString":
+                        output.innerText = converter.binaryToString(input.value);
+                        break;
+                    case "intToBinary":
+                        // Multiple integers were entered.
+                        if (input.value.includes(" ")) {
+                            /*var ints = input.value.split(" "),
+                                out = "";
+
+                            for (let val of ints) {
+                                if (val === "") continue;
+                                out += (" " + converter.intToBinary(Number(val)).join(""));
+                            }
+
+                            output.innerText = out;
+                            break;*/
+
+                            output.innerText = modifyValues(input.value, function (value) {
+                                return (" " + converter.intToBinary(Number(value)).join(""));
+                            });
+                            break;
+                        }
+
+                        var num = Number(input.value);
+                        output.innerText = converter.intToBinary(num).join("");
+                        break;
+                    case "binaryToInt":
+                        // Multiple binary numbers were entered.
+                        if (input.value.includes(" ")) {
+                            /*var numbers = input.value.split(" "),
+                                out = "";
+
+                            for (let val of numbers) {
+                                if (val === "") continue;
+                                out += (" " + converter.binaryToInt(val));
+                            }
+                            output.innerText = out;
+                            break;*/
+
+                            output.innerText = modifyValues(input.value, function (value) {
+                                return (" " + converter.binaryToInt(value));
+                            });
+                            break;
+                        }
+
+                        output.innerText = converter.binaryToInt(input.value);
+                        break;
+                    default:
+                }
+
+                return false;
+            }
+
+            input.onkeydown = function (e) {
+
+                // When binary is being entered prevent user from adding a new
+                // line to the code when enter is being pressed.
+                // Apply same formatting when user enters integers.
+                if (e.code === "Enter" || e.code === "NumpadEnter") {
+                    if (option.value.startsWith("binary") || option.value.startsWith("int")) {
+                        e.preventDefault();
+                        input.value += " ";
+                    }
+                }
+            };
+
+            document.querySelector("select").onchange = function () {
+                input.value = "";
+                output.innerText = "";
+            };
+
+            // Binary can include spaces to seperate numbers.
+            function checkBinaryValidity(str) {
+                var reg = /[2-9a-zA-z\/\*\-\+~!@#$%^&()_=\[\]{}\\\|;:\'\",.<>?]/g;
+                var res = str.match(reg)
+                return !(res);
+            }
+
+            function removeLineBreaks(str) {
+                var lineBreaks = /\r|\n/g.exec(str);
+
+                // If there are no line breaks return original string. Nothing replaced.
+                if (lineBreaks === null) {
+                    return str;
+                }
+                return str.split(/\r|\n/g).join(" ").trim();
+            }
+
+            function modifyValues(str, cb) {
+                var numbers = str.split(" "),
+                    out = "";
+
+                for (let val of numbers) {
+                    if (val === "") continue;
+                    out += cb(val);
+                }
+
+                return out.trim();
+            }
+        </script>
+    </body>
+</html>
